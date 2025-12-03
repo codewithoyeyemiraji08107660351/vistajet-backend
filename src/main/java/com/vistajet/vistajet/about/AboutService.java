@@ -29,7 +29,6 @@ public class AboutService {
         if (list.isEmpty()) {
             throw new ResourceNotFoundException("No About record found");
         }
-
         return list.stream()
                 .map(this::toResponse)
                 .toList();
