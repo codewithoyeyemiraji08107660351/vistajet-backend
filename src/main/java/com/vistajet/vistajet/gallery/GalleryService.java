@@ -33,6 +33,7 @@ public class GalleryService {
         Gallery gallery = Gallery.builder()
                 .title(request.getTitle())
                 .category(request.getCategory())
+                .caption(request.getCaption())
                 .description(request.getDescription())
                 .galleryImage(galleryImage)
                 .build();
@@ -132,6 +133,7 @@ public class GalleryService {
                 .id(gallery.getId())
                 .title(gallery.getTitle())
                 .category(gallery.getCategory())
+                .caption(gallery.getCaption())
                 .description(gallery.getDescription())
                 .galleryImage(galleryStorage.loadGalleryLogo(gallery.getGalleryImage()))
                 .createdAt(gallery.getCreatedAt())

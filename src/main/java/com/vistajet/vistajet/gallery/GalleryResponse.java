@@ -13,6 +13,7 @@ public class GalleryResponse {
     private String title;
     private String category;
     private String description;
+    private String caption;
     private String galleryImage;
     private LocalDateTime createdAt;
 }

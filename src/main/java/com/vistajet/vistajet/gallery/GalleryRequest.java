@@ -14,6 +14,7 @@ public class GalleryRequest {
     private String title;
     @NotBlank(message="Category cannot be empty")
     private String category;
+    private String caption;
     private String description;
     private String galleryImage;
 }

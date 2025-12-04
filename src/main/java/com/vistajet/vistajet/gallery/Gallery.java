@@ -23,6 +23,7 @@ public class Gallery {
     private String title;
 
     private String category;
+    private String caption;
 
     @Column(nullable = true)
     private String description;
