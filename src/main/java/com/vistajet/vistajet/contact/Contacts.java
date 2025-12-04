@@ -33,6 +33,8 @@ public class Contacts {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 
+    private String phoneNo;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

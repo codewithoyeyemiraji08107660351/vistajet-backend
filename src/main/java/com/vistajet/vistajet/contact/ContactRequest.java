@@ -22,4 +22,7 @@ public class ContactRequest {
 
     @NotBlank(message = "Message cannot be empty")
     private String message;
+
+    @NotBlank(message = "Phone number cannot be cannot be empty")
+    private String phoneNo;
 }

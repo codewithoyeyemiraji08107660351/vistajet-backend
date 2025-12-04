@@ -31,6 +31,7 @@ public class ContactService {
                 .email(request.getEmail())
                 .subject(request.getSubject())
                 .message(request.getMessage())
+                .phoneNo(request.getPhoneNo())
                 .build();
         repository.save(contacts);
         sendAcknowledgementEmail(contacts);
@@ -90,6 +91,7 @@ public class ContactService {
                 .email(contacts.getEmail())
                 .subject(contacts.getSubject())
                 .message(contacts.getMessage())
+                .phoneNo(contacts.getPhoneNo())
                 .createdAt(contacts.getCreatedAt())
                 .build();
     }
