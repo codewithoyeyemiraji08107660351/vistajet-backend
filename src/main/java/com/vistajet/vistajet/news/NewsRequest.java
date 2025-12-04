@@ -18,7 +18,7 @@ public class NewsRequest {
     @NotBlank(message = "News content cannot be blank")
     private String content;
 
-    @NotBlank(message = "News content cannot be blank")
+    @NotBlank(message = "Author content cannot be blank")
     private String author;
     private String image;
 }
