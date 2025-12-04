@@ -32,6 +32,7 @@ public class NewsService {
             News news = News.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
+                    .author(request.getAuthor())
                 .image(imageName)
                 .build();
 
@@ -120,6 +121,7 @@ public class NewsService {
                 .id(news.getId())
                 .title(news.getTitle())
                 .content(news.getContent())
+                .author(news.getAuthor())
                 .imageUrl(imageStorage.loadNewsPhoto(news.getImage()))
                 .createdAt(news.getCreatedAt())
                 .build();

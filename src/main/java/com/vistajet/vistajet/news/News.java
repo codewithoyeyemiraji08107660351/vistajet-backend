@@ -28,6 +28,8 @@ public class News {
     @Column(nullable = true)
     private String image;
 
+    private String author;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
