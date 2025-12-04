@@ -37,6 +37,7 @@ public class PartnerController {
     }
 
     @GetMapping("/find")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<PartnerResponse> getAPartner(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String companyName

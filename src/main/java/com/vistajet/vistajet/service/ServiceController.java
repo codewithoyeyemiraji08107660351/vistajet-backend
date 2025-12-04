@@ -36,6 +36,7 @@ public class ServiceController {
         return ResponseEntity.ok(service.getAllService());
     }
     @GetMapping("/find")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ServiceResponse> getAService(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String title

@@ -37,6 +37,7 @@ public class LeadershipController {
     }
 
     @GetMapping("/leader/find")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<LeadershipResponse> getLeader(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String fullName

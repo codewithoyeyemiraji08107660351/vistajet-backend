@@ -36,6 +36,7 @@ public class TestimonialsController {
     }
 
     @GetMapping("/find")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TestimonialsResponse> getAllTestimonials(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String fullName

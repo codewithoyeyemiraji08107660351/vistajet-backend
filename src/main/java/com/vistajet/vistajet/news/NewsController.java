@@ -37,6 +37,7 @@ public class NewsController {
     }
 
     @GetMapping("/find")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<NewsResponse> getNews(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String fullName

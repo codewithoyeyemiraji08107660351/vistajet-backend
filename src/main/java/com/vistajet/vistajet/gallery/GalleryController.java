@@ -37,6 +37,7 @@ public class GalleryController {
     }
 
     @GetMapping("/find")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<GalleryResponse>> getAGallery(
             @RequestParam (required = true) List<String> category
     ) {
