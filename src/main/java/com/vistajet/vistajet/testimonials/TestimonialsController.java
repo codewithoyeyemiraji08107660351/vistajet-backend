@@ -1,6 +1,5 @@
 package com.vistajet.vistajet.testimonials;
 
-import com.vistajet.vistajet.common.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,10 +31,8 @@ public class TestimonialsController {
     }
 
     @GetMapping("/all-testimonials")
-    public ResponseEntity<PageResponse<TestimonialsResponse>> getAllTestimonials(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok( testimonialsService.getAllTestimonials(page, size));
+    public ResponseEntity<List<TestimonialsResponse>> getAllTestimonials() {
+        return ResponseEntity.ok( testimonialsService.getAllTestimonials());
     }
 
     @GetMapping("/find")

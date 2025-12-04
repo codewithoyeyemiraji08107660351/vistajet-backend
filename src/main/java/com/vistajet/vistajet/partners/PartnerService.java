@@ -1,15 +1,10 @@
 package com.vistajet.vistajet.partners;
 
-import com.vistajet.vistajet.common.PageResponse;
 import com.vistajet.vistajet.exceptions.InvalidRequestException;
 import com.vistajet.vistajet.exceptions.ResourceNotFoundException;
 import com.vistajet.vistajet.file.CompanyLogoStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -35,24 +30,16 @@ public class PartnerService {
                 .build();
         partnerRepository.save(partners);
     }
-    public PageResponse<PartnerResponse> getAllPartners(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("companyName").ascending());
-        Page<Partners> partners = partnerRepository.findAll(pageable);
+    public List<PartnerResponse> getAllPartners() {
 
-        List<PartnerResponse> partnersList = partners
+        List<Partners> partners = partnerRepository.findAll();
+
+                return partners
                 .stream()
                 .map(this::toResponse)
                 .toList();
-        return new PageResponse<>(
-                partnersList,
-                partners.getNumber(),
-                partners.getSize(),
-                partners.getTotalElements(),
-                partners.getTotalPages(),
-                partners.isFirst(),
-                partners.isLast()
-        );
     }
+
     public PartnerResponse getAPartner(Integer id, String companyName) {
         Partners partners;
 

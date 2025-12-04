@@ -1,16 +1,10 @@
 package com.vistajet.vistajet.gallery;
 
 
-import com.vistajet.vistajet.common.PageResponse;
 import com.vistajet.vistajet.exceptions.ResourceNotFoundException;
 import com.vistajet.vistajet.file.GalleryLogoStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -39,52 +33,35 @@ public class GalleryService {
                 .build();
         repository.save(gallery);
     }
-    public PageResponse<GalleryResponse> getAllGallery(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<Gallery> gallery = repository.findAll(pageable);
 
-        List<GalleryResponse> galleryResponseList = gallery
-                .stream()
+    public List<GalleryResponse> getAllGallery() {
+
+        List<Gallery> gallery = repository.findAll();
+
+        if (gallery.isEmpty()) {
+            throw new ResourceNotFoundException("No Gallery found");
+        }
+        return gallery.stream()
                 .map(this::toResponse)
                 .toList();
-        return new PageResponse<>(
-                galleryResponseList,
-                gallery.getNumber(),
-                gallery.getSize(),
-                gallery.getTotalElements(),
-                gallery.getTotalPages(),
-                gallery.isFirst(),
-                gallery.isLast()
-        );
+
     }
 
-    public PageResponse<GalleryResponse> getAGallery(int page, int size, List<String> categories) {
+    public List<GalleryResponse> getAGallery(List<String> categories) {
 
         if (categories == null || categories.isEmpty()) {
             throw new ResourceNotFoundException("Category must be provided");
         }
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<Gallery> galleryPage = repository.findByCategoryIn(categories, pageable);
+        List<Gallery> galleryPage = repository.findByCategoryIn(categories);
 
         if (galleryPage.isEmpty()) {
             throw new ResourceNotFoundException("No gallery found for category: ");
         }
-
-        List<GalleryResponse> responses = galleryPage
+                return galleryPage
                 .stream()
                 .map(this::toResponse)
                 .toList();
-
-        return new PageResponse<>(
-                responses,
-                galleryPage.getNumber(),
-                galleryPage.getSize(),
-                galleryPage.getTotalElements(),
-                galleryPage.getTotalPages(),
-                galleryPage.isFirst(),
-                galleryPage.isLast()
-        );
     }
 
 

@@ -22,6 +22,6 @@ public class AboutRequest {
     @NotBlank(message = "Vision cannot be empty")
     private String vision;
 
-    @NotEmpty(message = "At least One core should be provided")
+    @NotEmpty(message = "At least One core pillar should be provided")
     private List<String> corePillars;
 }

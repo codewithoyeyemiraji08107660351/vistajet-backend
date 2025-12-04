@@ -1,17 +1,11 @@
 package com.vistajet.vistajet.testimonials;
 
-
-import com.vistajet.vistajet.common.PageResponse;
 import com.vistajet.vistajet.exceptions.InvalidRequestException;
 import com.vistajet.vistajet.exceptions.ResourceNotFoundException;
 import com.vistajet.vistajet.file.TestimonialImageStorage;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -40,23 +34,13 @@ public class TestimonialsService {
         repository.save(testimonials);
     }
 
-    public PageResponse<TestimonialsResponse> getAllTestimonials(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<Testimonials> testimonials = repository.findAll(pageable);
+    public List<TestimonialsResponse> getAllTestimonials() {
+        List<Testimonials> testimonials = repository.findAll();
 
-        List<TestimonialsResponse> responses = testimonials
+                return testimonials
                 .stream()
                 .map(this::toResponse)
                 .toList();
-        return new PageResponse<>(
-                responses,
-                testimonials.getNumber(),
-                testimonials.getSize(),
-                testimonials.getTotalElements(),
-                testimonials.getTotalPages(),
-                testimonials.isFirst(),
-                testimonials.isLast()
-        );
     }
     public TestimonialsResponse getATestimonials(Integer id, String fullName) {
 

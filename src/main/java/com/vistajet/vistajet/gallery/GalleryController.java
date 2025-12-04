@@ -1,7 +1,5 @@
 package com.vistajet.vistajet.gallery;
 
-
-import com.vistajet.vistajet.common.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,19 +32,15 @@ public class GalleryController {
     }
 
     @GetMapping("/galleries")
-    public ResponseEntity<PageResponse<GalleryResponse>> getAllGallery(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(galleryService.getAllGallery(page, size));
+    public ResponseEntity<List<GalleryResponse>> getAllGallery(){
+        return ResponseEntity.ok(galleryService.getAllGallery());
     }
 
     @GetMapping("/find")
-    public ResponseEntity<PageResponse<GalleryResponse>> getAGallery(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+    public ResponseEntity<List<GalleryResponse>> getAGallery(
             @RequestParam (required = true) List<String> category
     ) {
-        return ResponseEntity.ok(galleryService.getAGallery(page, size, category));
+        return ResponseEntity.ok(galleryService.getAGallery(category));
     }
 
     @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")

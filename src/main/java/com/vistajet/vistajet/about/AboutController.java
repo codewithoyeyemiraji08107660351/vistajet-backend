@@ -19,7 +19,7 @@ public class AboutController {
 
     @PostMapping(value = "/add-about")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> addGallery(
+    public ResponseEntity<?> addAbout(
             @RequestBody @Valid AboutRequest request) {
         service.createAbout(request);
         return ResponseEntity.status(HttpStatus.CREATED)

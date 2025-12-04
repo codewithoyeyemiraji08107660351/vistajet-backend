@@ -1,15 +1,10 @@
 package com.vistajet.vistajet.leadership;
 
-import com.vistajet.vistajet.common.PageResponse;
 import com.vistajet.vistajet.exceptions.InvalidRequestException;
 import com.vistajet.vistajet.exceptions.ResourceNotFoundException;
 import com.vistajet.vistajet.file.LeadersImageStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,25 +36,15 @@ public class LeadershipService {
         repository.save(leadership);
     }
 
-    public PageResponse<LeadershipResponse> getAllLeaders(int page, int size) {
+    public List<LeadershipResponse> getAllLeaders() {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("fullName").ascending());
-        Page<Leadership> leaders = repository.findAll(pageable);
+        List<Leadership> leaders = repository.findAll();
 
-        List<LeadershipResponse> response = leaders
+                return leaders
                 .stream()
                 .map(this::toResponse)
                 .toList();
 
-        return new PageResponse<>(
-                response,
-                leaders.getNumber(),
-                leaders.getSize(),
-                leaders.getTotalElements(),
-                leaders.getTotalPages(),
-                leaders.isFirst(),
-                leaders.isLast()
-        );
     }
 
     public LeadershipResponse getALeadership(Integer id, String fullName) {

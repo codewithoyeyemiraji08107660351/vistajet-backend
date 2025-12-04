@@ -1,13 +1,14 @@
 package com.vistajet.vistajet.contact;
 
 
-import com.vistajet.vistajet.common.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,10 +28,8 @@ public class ContactController {
 
     @GetMapping("/all-contact")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<PageResponse<ContactResponse>> getAllGallery(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(contactService.getAllContact(page, size));
+    public ResponseEntity<List<ContactResponse>> getAllContacts() {
+        return ResponseEntity.ok(contactService.getAllContact());
     }
 
 }

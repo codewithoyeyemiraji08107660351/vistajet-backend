@@ -2,14 +2,9 @@ package com.vistajet.vistajet.news;
 
 import com.vistajet.vistajet.exceptions.InvalidRequestException;
 import com.vistajet.vistajet.exceptions.ResourceNotFoundException;
-import com.vistajet.vistajet.common.PageResponse;
 import com.vistajet.vistajet.file.NewsImageStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -39,24 +34,13 @@ public class NewsService {
         repository.save(news);
     }
 
-    public PageResponse<NewsResponse> getAllNews(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<News> news = repository.findAll(pageable);
+    public List<NewsResponse> getAllNews() {
 
-        List<NewsResponse> response = news
+        List<News> news = repository.findAll();
+                return news
                 .stream()
                 .map(this::toResponse)
                 .toList();
-
-        return new PageResponse<>(
-                response,
-                news.getNumber(),
-                news.getSize(),
-                news.getTotalElements(),
-                news.getTotalPages(),
-                news.isFirst(),
-                news.isLast()
-        );
     }
 
     public NewsResponse getANews(Integer id, String fullName) {

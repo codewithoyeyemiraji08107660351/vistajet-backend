@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface GalleryRepository extends JpaRepository<Gallery, Integer> {
 
-    Page<Gallery> findByCategoryIn(List<String> categories, Pageable pageable);
+    List<Gallery> findByCategoryIn(List<String> categories);
 
 }

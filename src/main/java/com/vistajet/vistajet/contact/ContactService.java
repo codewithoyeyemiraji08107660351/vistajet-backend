@@ -1,22 +1,17 @@
 package com.vistajet.vistajet.contact;
 
 
-import com.vistajet.vistajet.common.PageResponse;
 import com.vistajet.vistajet.exceptions.InvalidRequestException;
+import com.vistajet.vistajet.exceptions.ResourceNotFoundException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
+
 
 @Service
 @RequiredArgsConstructor
@@ -64,24 +59,17 @@ public class ContactService {
         }
     }
 
+    public List<ContactResponse> getAllContact() {
 
-    public PageResponse<ContactResponse> getAllContact(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<Contacts> contacts = repository.findAll(pageable);
+        List<Contacts> contacts = repository.findAll();
 
-        List<ContactResponse> responses = contacts
-                .stream()
+        if (contacts.isEmpty()) {
+            throw new ResourceNotFoundException("No Contacts record found");
+        }
+
+        return contacts.stream()
                 .map(this::toResponse)
                 .toList();
-        return new PageResponse<>(
-                responses,
-                contacts.getNumber(),
-                contacts.getSize(),
-                contacts.getTotalElements(),
-                contacts.getTotalPages(),
-                contacts.isFirst(),
-                contacts.isLast()
-        );
     }
 
     private ContactResponse toResponse(Contacts contacts){

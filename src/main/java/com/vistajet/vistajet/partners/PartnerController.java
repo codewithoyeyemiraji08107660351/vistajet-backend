@@ -1,8 +1,5 @@
 package com.vistajet.vistajet.partners;
 
-import com.vistajet.vistajet.common.PageResponse;
-import com.vistajet.vistajet.news.NewsRequest;
-import com.vistajet.vistajet.news.NewsResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,10 +32,8 @@ public class PartnerController {
     }
 
     @GetMapping("/all-partners")
-    public ResponseEntity<PageResponse<PartnerResponse>> getAllPartners(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(partnerService.getAllPartners(page, size));
+    public ResponseEntity<List<PartnerResponse>> getAllPartners() {
+        return ResponseEntity.ok(partnerService.getAllPartners());
     }
 
     @GetMapping("/find")

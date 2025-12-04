@@ -1,4 +1,4 @@
-package com.vistajet.vistajet.news;
+package com.vistajet.vistajet.service;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,52 +13,51 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/news")
+@RequestMapping("/api/v1/service")
 @CrossOrigin(origins = "*")
 @Validated
-public class NewsController {
+public class ServiceController {
 
-    private final NewsService service;
+    private final MyServices service;
 
-    @PostMapping(value = "/create-news", consumes = "multipart/form-data")
+    @PostMapping(value = "/add-service", consumes = "multipart/form-data")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> createNews(
-            @RequestPart("data") @Valid NewsRequest request,
+    public ResponseEntity<?> addService(
+            @RequestPart("data") @Valid ServiceRequest request,
             @RequestPart("file") MultipartFile file) {
-
-        service.createNews(request, file);
+        service.createService(request, file);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("News created successfully");
+                .body("Service saved successfully");
     }
 
-    @GetMapping("/all-news")
-    public ResponseEntity<List<NewsResponse>> getAllNews() {
-        return ResponseEntity.ok(service.getAllNews());
-    }
 
+    @GetMapping("/all-service")
+    public ResponseEntity<List<ServiceResponse>> getAllService(){
+        return ResponseEntity.ok(service.getAllService());
+    }
     @GetMapping("/find")
-    public ResponseEntity<NewsResponse> getNews(
+    public ResponseEntity<ServiceResponse> getAService(
             @RequestParam(required = false) Integer id,
-            @RequestParam(required = false) String fullName
+            @RequestParam(required = false) String title
     ) {
-        return ResponseEntity.ok(service.getANews(id, fullName));
+        return ResponseEntity.ok(service.getAService(id, title));
     }
 
     @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> update(
             @PathVariable Integer id,
-            @RequestPart("data") @Valid NewsRequest request,
+            @RequestPart("data") @Valid ServiceRequest request,
             @RequestPart(value = "file", required = false) MultipartFile file) {
 
-        service.updateNews(id, request, file);
-        return ResponseEntity.ok("News updated successfully");
+        service.updateService(id, request, file);
+        return ResponseEntity.ok("Service updated successfully");
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
-        service.deleteNews(id);
-        return ResponseEntity.ok("News removed successfully");
+        service.deleteService(id);
+        return ResponseEntity.ok("Service removed successfully");
     }
 }
