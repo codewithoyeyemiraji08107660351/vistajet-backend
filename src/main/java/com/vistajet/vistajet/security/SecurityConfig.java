@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/testimonials/create-testimonials","/api/v1/testimonials/all-testimonials", "/api/v1/testimonials/find/**").permitAll()
                         .requestMatchers("/api/v1/partners/all-partners", "/api/v1/partners/find/**").permitAll()
                         .requestMatchers("/api/v1/contact/add-contact").permitAll()
-                        .requestMatchers("api/v1/about/all-about").permitAll()
+                        .requestMatchers("/api/v1/about/all-about").permitAll()
                         .requestMatchers("/api/v1/gallery/galleries").permitAll()
                         .requestMatchers("/api/v1/gallery/find/**").permitAll()
                         .requestMatchers("/api/v1/service/all-service").permitAll()

@@ -1,11 +1,12 @@
 package com.vistajet.vistajet.service;
 
 import lombok.Builder;
-import org.springframework.stereotype.Service;
+import lombok.Data;
 
 import java.util.List;
 
-@Service
+
+@Data
 @Builder
 public class ServiceResponse {
     private Integer id;
