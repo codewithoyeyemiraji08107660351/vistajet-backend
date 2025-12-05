@@ -27,12 +27,14 @@ public class AboutController {
     }
 
     @GetMapping("/all-about")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<AboutResponse>> getAllAbout() {
         return ResponseEntity.ok(service.getAllAbout());
     }
 
     @PutMapping(value = "/update/{id}")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> updateAbout(@PathVariable("id") Integer id,
                                          @RequestBody AboutRequest request){
         service.updateAbout(id, request);

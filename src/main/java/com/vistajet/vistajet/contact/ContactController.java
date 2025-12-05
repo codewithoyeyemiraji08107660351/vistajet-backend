@@ -27,6 +27,7 @@ public class ContactController {
     }
 
     @GetMapping("/all-contact")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<ContactResponse>> getAllContacts() {
         return ResponseEntity.ok(contactService.getAllContact());

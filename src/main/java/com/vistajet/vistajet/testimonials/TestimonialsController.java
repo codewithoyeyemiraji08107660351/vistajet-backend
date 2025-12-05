@@ -31,12 +31,14 @@ public class TestimonialsController {
     }
 
     @GetMapping("/all-testimonials")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<TestimonialsResponse>> getAllTestimonials() {
         return ResponseEntity.ok( testimonialsService.getAllTestimonials());
     }
 
     @GetMapping("/find")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<TestimonialsResponse> getAllTestimonials(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String fullName
@@ -46,6 +48,7 @@ public class TestimonialsController {
 
     @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> updateTestimonials(
             @PathVariable Integer id,
             @RequestPart("data") @Valid TestimonialsResponse request,
@@ -57,6 +60,7 @@ public class TestimonialsController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> deleteTestimonials(@PathVariable Integer id) {
         testimonialsService.deleteTestimonials(id);
         return ResponseEntity.ok("Testimonials removed successfully");

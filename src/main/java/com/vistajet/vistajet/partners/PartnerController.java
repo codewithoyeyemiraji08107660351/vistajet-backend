@@ -32,12 +32,14 @@ public class PartnerController {
     }
 
     @GetMapping("/all-partners")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<PartnerResponse>> getAllPartners() {
         return ResponseEntity.ok(partnerService.getAllPartners());
     }
 
     @GetMapping("/find")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<PartnerResponse> getAPartner(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String companyName
@@ -47,6 +49,7 @@ public class PartnerController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> deletePartners(@PathVariable Integer id) {
         partnerService.deletePartners(id);
         return ResponseEntity.ok("Partner removed successfully");

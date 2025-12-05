@@ -16,10 +16,10 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request){
         service.register(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Admin added successfully");
     }
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.ACCEPTED)

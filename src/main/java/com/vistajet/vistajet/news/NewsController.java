@@ -32,12 +32,14 @@ public class NewsController {
     }
 
     @GetMapping("/all-news")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<NewsResponse>> getAllNews() {
         return ResponseEntity.ok(service.getAllNews());
     }
 
     @GetMapping("/find")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<NewsResponse> getNews(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String fullName
@@ -47,6 +49,7 @@ public class NewsController {
 
     @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> update(
             @PathVariable Integer id,
             @RequestPart("data") @Valid NewsRequest request,
@@ -58,6 +61,7 @@ public class NewsController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         service.deleteNews(id);
         return ResponseEntity.ok("News removed successfully");

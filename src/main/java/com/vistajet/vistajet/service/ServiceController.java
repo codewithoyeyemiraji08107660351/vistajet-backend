@@ -32,11 +32,13 @@ public class ServiceController {
 
 
     @GetMapping("/all-service")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<ServiceResponse>> getAllService(){
         return ResponseEntity.ok(service.getAllService());
     }
     @GetMapping("/find")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<ServiceResponse> getAService(
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String title
@@ -46,6 +48,7 @@ public class ServiceController {
 
     @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> update(
             @PathVariable Integer id,
             @RequestPart("data") @Valid ServiceRequest request,
@@ -57,6 +60,7 @@ public class ServiceController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         service.deleteService(id);
         return ResponseEntity.ok("Service removed successfully");

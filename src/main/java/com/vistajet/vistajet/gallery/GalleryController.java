@@ -32,12 +32,14 @@ public class GalleryController {
     }
 
     @GetMapping("/galleries")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<GalleryResponse>> getAllGallery(){
         return ResponseEntity.ok(galleryService.getAllGallery());
     }
 
     @GetMapping("/find")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<GalleryResponse>> getAGallery(
             @RequestParam (required = true) List<String> category
     ) {
@@ -46,6 +48,7 @@ public class GalleryController {
 
     @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> updateGallery(
             @PathVariable Integer id,
             @RequestPart("data") @Valid GalleryRequest request,
@@ -57,6 +60,7 @@ public class GalleryController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> deleteGallery(@PathVariable Integer id) {
         galleryService.deleteGallery(id);
         return ResponseEntity.ok("Gallery removed successfully");
