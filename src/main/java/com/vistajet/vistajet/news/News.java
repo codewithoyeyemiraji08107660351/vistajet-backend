@@ -30,6 +30,9 @@ public class News {
 
     private String author;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String preview;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

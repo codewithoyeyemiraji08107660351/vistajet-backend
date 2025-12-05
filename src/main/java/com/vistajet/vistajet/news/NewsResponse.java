@@ -1,5 +1,6 @@
 package com.vistajet.vistajet.news;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class NewsResponse {
     private Integer id;
     private String title;
     private String content;
+    private String preview;
     private String imageUrl;
     private String author;
     private LocalDateTime createdAt;
