@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/news")
-@CrossOrigin(origins = "https://customshangarservices.netlify.app")
+@CrossOrigin(origins = "https://localhost:5173")
 @Validated
 public class NewsController {
 

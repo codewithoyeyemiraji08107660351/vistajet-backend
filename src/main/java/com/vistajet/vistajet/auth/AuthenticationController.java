@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = "https://customshangarservices.netlify.app")
+@CrossOrigin(origins = "https://localhost:5173")
 public class AuthenticationController {
 
     private final AuthenticationService service;
@@ -32,7 +32,6 @@ public class AuthenticationController {
     @GetMapping("/all-admin")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<AllAdminResponse>> getAllAbout() {
-
         return ResponseEntity.ok(service.getAllAdmin());
     }
 }
