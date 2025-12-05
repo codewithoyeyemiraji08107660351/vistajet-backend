@@ -10,112 +10,117 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ExceptionResponse> exceptionHandler(BadCredentialsException exp){
+    private ResponseEntity<ExceptionResponse> build(
+            BusinessErrorCodes errorCode,
+            String message,
+            Set<String> validationSet,
+            Map<String, String> errorMap
+    ) {
         return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
+                .status(errorCode.getStatus())
                 .body(
                         ExceptionResponse.builder()
-                                .code(BusinessErrorCodes.BAD_CREDENTIALS.getCode())
-                                .error(BusinessErrorCodes.BAD_CREDENTIALS.getDescription())
+                                .code(errorCode.getCode())
+                                .businessErrorDescription(errorCode.getDescription())
+                                .error(message)
+                                .validationError(validationSet)
+                                .errors(errorMap)
                                 .build()
-
                 );
+    }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ExceptionResponse> handleBadCredentials(BadCredentialsException ex) {
+        return build(
+                BusinessErrorCodes.BAD_CREDENTIALS,
+                "Invalid username or password",
+                null,
+                null
+        );
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> exceptionHandler(MethodArgumentNotValidException exp){
+    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
 
-        Set<String> errors = new HashSet<>();
-        exp.getBindingResult()
-                .getAllErrors()
-                .forEach(error -> {
-                    var errorMessage =  error.getDefaultMessage();
-                    errors.add(errorMessage);
-                });
-        return ResponseEntity
-                .status(HttpStatus.FORBIDDEN)
-                .body(
-                        ExceptionResponse.builder()
-                                .validationError(errors)
-                                .build()
-                );
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(err ->
+                errors.put(err.getField(), err.getDefaultMessage())
+        );
+
+        return build(
+                BusinessErrorCodes.VALIDATION_FAILED,
+                "Validation failed",
+                null,
+                errors
+        );
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ExceptionResponse> handleConstraintViolation(ConstraintViolationException ex) {
 
         Map<String, String> errors = new HashMap<>();
+        ex.getConstraintViolations().forEach(v ->
+                errors.put(v.getPropertyPath().toString(), v.getMessage())
+        );
 
-        ex.getConstraintViolations().forEach(violation -> {
-            String field = violation.getPropertyPath().toString();
-            String message = violation.getMessage();
-            errors.put(field, message);
-        });
-
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(ExceptionResponse.builder()
-                        .code(BusinessErrorCodes.VALIDATION_FAILED.getCode())
-                        .error("Validation failed")
-                        .errors(errors)
-                        .build());
+        return build(
+                BusinessErrorCodes.VALIDATION_FAILED,
+                "Validation failed",
+                null,
+                errors
+        );
     }
 
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ExceptionResponse> exceptionHandler(RuntimeException exp) {
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ExceptionResponse.builder()
-                                .code(BusinessErrorCodes.BAD_REQUEST.getCode())
-                                .error(BusinessErrorCodes.BAD_REQUEST.getDescription())
-                                .build()
-                );
-    }
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<?> handleNotFound(ResourceNotFoundException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
-    }
+    public ResponseEntity<ExceptionResponse> handleNotFound(ResourceNotFoundException ex) {
 
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ExceptionResponse.builder()
+                        .code(404)
+                        .error(ex.getMessage())
+                        .businessErrorDescription("Resource not found")
+                        .build()
+        );
+    }
 
     @ExceptionHandler(InvalidRequestException.class)
-    public ResponseEntity<?> handleInvalid(InvalidRequestException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ExceptionResponse> handleInvalidRequest(InvalidRequestException ex) {
+
+        return build(
+                BusinessErrorCodes.BAD_REQUEST,
+                ex.getMessage(),
+                null,
+                null
+        );
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionResponse> handleRuntime(RuntimeException ex) {
+
+        return build(
+                BusinessErrorCodes.BAD_REQUEST,
+                ex.getMessage(),
+                null,
+                null
+        );
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse> exceptionHandler(Exception exp){
-        exp.printStackTrace();
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ExceptionResponse> handleGeneral(Exception ex) {
+        ex.printStackTrace();
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(
                         ExceptionResponse.builder()
                                 .code(500)
-                                .error("Server is breakdown, pls contact the administrator")
+                                .error("Server error. Please contact admin")
+                                .businessErrorDescription("Internal Server Error")
                                 .build()
                 );
     }
-
-    private ResponseEntity<?> buildResponse(String message, HttpStatus status) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("status", status.value());
-        body.put("error", status.getReasonPhrase());
-        body.put("message", message);
-
-        return new ResponseEntity<>(body, status);
-    }
-
-
-
 }
