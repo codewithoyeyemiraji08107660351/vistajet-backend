@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/contact")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://customshangarservices.netlify.app")
 public class ContactController {
 
     private final ContactService contactService;

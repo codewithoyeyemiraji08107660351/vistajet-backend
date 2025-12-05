@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = "https://customshangarservices.netlify.app/")
+@CrossOrigin(origins = "https://customshangarservices.netlify.app")
 public class AuthenticationController {
 
     private final AuthenticationService service;

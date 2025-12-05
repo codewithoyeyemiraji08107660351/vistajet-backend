@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://customshangarservices.netlify.app/")
+@CrossOrigin(origins = "https://customshangarservices.netlify.app")
 @RequestMapping("/api/v1/about")
 public class AboutController {
 

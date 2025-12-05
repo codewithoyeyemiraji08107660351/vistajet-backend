@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/testimonials")
-@CrossOrigin(origins = "https://customshangarservices.netlify.app/")
+@CrossOrigin(origins = "https://customshangarservices.netlify.app")
 @Validated
 public class TestimonialsController {
 
