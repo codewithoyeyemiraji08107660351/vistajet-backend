@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/gallery")
-@CrossOrigin(origins = "https://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")
 @Validated
 public class GalleryController {
 
