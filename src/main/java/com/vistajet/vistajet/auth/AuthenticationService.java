@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 
 
 @Service
@@ -56,4 +57,22 @@ public class AuthenticationService {
                 .build();
     }
 
+    public List<AllAdminResponse> getAllAdmin() {
+        List<Users> admins = repository.findAll();
+        return admins.stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    public AllAdminResponse toResponse(Users users){
+        return AllAdminResponse.builder()
+                .id(users.getId())
+                .firstname(users.getFirstname())
+                .lastname(users.getLastname())
+                .email(users.getEmail())
+                .phone_no(users.getPhone_no())
+                .role(users.getRole())
+                .address(users.getAddress())
+                .build();
+    }
 }

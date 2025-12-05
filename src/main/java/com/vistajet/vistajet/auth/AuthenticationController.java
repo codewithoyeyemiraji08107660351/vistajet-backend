@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
@@ -26,5 +28,11 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody @Valid AuthenticationRequest request){
         return ResponseEntity.ok(service.authenticate(request));
+    }
+    @GetMapping("/all-admin")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<List<AllAdminResponse>> getAllAbout() {
+
+        return ResponseEntity.ok(service.getAllAdmin());
     }
 }
