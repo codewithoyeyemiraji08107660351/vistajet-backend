@@ -2,7 +2,6 @@ package com.vistajet.vistajet.about;
 
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
 
 @Data
@@ -14,4 +13,5 @@ public class AboutResponse {
     private String mission;
     private String vision;
     private List<String> corePillars;
+    private String compliance;
 }

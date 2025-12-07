@@ -52,6 +52,7 @@ public class AboutService {
                 .overview(about.getOverview())
                 .mission(about.getMission())
                 .vision(about.getVision())
+                .compliance(about.getCompliance())
                 .corePillars(about.getCorePillars())
                 .build();
     }

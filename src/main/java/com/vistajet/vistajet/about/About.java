@@ -29,6 +29,9 @@ public class About {
     @Column(columnDefinition = "TEXT")
     private String vision;
 
+    @Column(columnDefinition = "TEXT")
+    private String compliance;
+
     @ElementCollection
     @CollectionTable(
             name = "about_core_pillars",

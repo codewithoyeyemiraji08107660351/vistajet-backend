@@ -1,12 +1,15 @@
 package com.vistajet.vistajet.contact;
 
 
+import com.resend.Resend;
+import com.resend.core.exception.ResendException;
+import com.resend.services.emails.model.CreateEmailOptions;
 import com.vistajet.vistajet.exceptions.InvalidRequestException;
 import com.vistajet.vistajet.exceptions.ResourceNotFoundException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -18,7 +21,7 @@ import java.util.List;
 public class ContactService {
 
     private final ContactRepository  repository;
-    private final JavaMailSender mailSender;
+    private final Resend resend;
 
     public void createContact(ContactRequest request) {
         Contacts contacts = Contacts.builder()
@@ -32,32 +35,36 @@ public class ContactService {
         sendAcknowledgementEmail(contacts);
     }
 
+    @Async
     private void sendAcknowledgementEmail(Contacts contacts) {
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-            helper.setFrom("noreply@vistajet.com", "VistaJet Support");
-            helper.setTo(contacts.getEmail());
-            helper.setSubject("We Received Your Message – VistaJet Support");
 
             String template;
-            try (InputStream input = ContactService.class.getResourceAsStream("/templates/contact-email.html")) {
+            try (InputStream input = getClass().getResourceAsStream("/templates/contact-email.html")) {
                 if (input == null) {
                     throw new IllegalStateException("Email template not found in /templates/contact-email.html");
                 }
                 template = new String(input.readAllBytes(), StandardCharsets.UTF_8);
             }
+
             template = template.replace("{{fullName}}", contacts.getFullName());
 
-            helper.setText(template, true);
+            CreateEmailOptions params = CreateEmailOptions.builder()
+                    .from("NCTSL Support <noreply@nctsl.com>")
+                    .to(contacts.getEmail())
+                    .subject("We Received Your Message – NCTSL Support")
+                    .html(template)
+                    .build();
 
-            mailSender.send(message);
+            resend.emails().send(params);
 
+        } catch (ResendException e) {
+            throw new InvalidRequestException("Resend error: " + e.getMessage());
         } catch (Exception e) {
             throw new InvalidRequestException("Email not sent. Something went wrong: " + e.getMessage());
         }
     }
+
 
     public List<ContactResponse> getAllContact() {
 

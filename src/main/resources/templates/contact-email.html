@@ -2,95 +2,205 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Acknowledgement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Acknowledgement - Nigeria Customs Technical & Hangar Service Limited</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 40px 20px;
+            border-bottom: 3px solid #006400;
+            background-color:  #e9e4d4;
+        }
+
+        .company-name {
+            font-size: 24px;
+            color: #006400;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .company-subtitle {
+            font-size: 14px;
+            color: #666;
+            font-weight: 400;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .salutation {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .highlight-name {
+            color: #006400;
+            font-weight: 600;
+        }
+
+        .message {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .message p {
+            margin-bottom: 20px;
+        }
+
+        .support-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 3px solid red;
+            margin-top: 30px;
+        }
+
+        .support-link {
+            color: #006400;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .support-link:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            height: 1px;
+            background: #eee;
+            width: 100%;
+        }
+
+        .footer {
+            padding: 30px 40px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .address-section {
+            margin-bottom: 20px;
+        }
+
+        .address-title {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .address-details {
+            color: #555;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 10px auto;
+            }
+
+            .header,
+            .content,
+            .footer {
+                padding: 30px 20px;
+            }
+
+            .company-name {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1 class="company-name">
+            Nigeria Customs Technical &<br>Hangar Service Limited
+        </h1>
+    </header>
 
-<body style="margin:0; padding:0; background-color:#e9ebee; font-family:'Segoe UI', Arial, sans-serif;">
+    <main class="content">
+        <p class="salutation">
+            Dear <span class="highlight-name">{{fullName}}</span>,
+        </p>
 
-<table width="100%" cellspacing="0" cellpadding="0" bgcolor="#e9ebee">
-    <tr>
-        <td align="center">
+        <div class="message">
+            <p>
+                Thank you for contacting Nigeria Customs Technical &
+                Hangar Service Limited.
+            </p>
 
-            <table width="600" cellspacing="0" cellpadding="0"
-                   style="margin-top:40px; background:#ffffff; border-radius:10px;
-                       overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.15);">
+            <p>
+                We have received your message and our team will
+                respond to your inquiry shortly. Please allow
+                us some time to review your request thoroughly.
+            </p>
 
-                <tr>
-                    <td style="
-                        background: linear-gradient(135deg, #1b1b1b, #2a2a2a);
-                        padding:35px 0;
-                        text-align:center;
-                    ">
-                        <span style="
-                            font-size:34px;
-                            letter-spacing:14px;
-                            color:#f1f1f1;
-                            font-weight:300;
-                        ">
-                            <span style="color:#d21f26; font-weight:500;">Nigeria Customs Technical & Hangar Service Limited</span>ISTA
-                        </span>
-                    </td>
-                </tr>
+            <p>
+                We appreciate your patience and look forward
+                to assisting you.
+            </p>
+        </div>
 
-                <!-- Body -->
-                <tr>
-                    <td style="padding:45px 45px 35px 45px; color:#333;">
-                        <p style="font-size:17px; font-weight:500; margin-bottom:20px;">
-                            Dear <strong>{{fullName}}</strong>,
-                        </p>
+        <div class="support-box">
+            <p>
+                For urgent matters, please contact our
+                <a href="#" class="support-link">Support Team</a>.
+            </p>
+        </div>
+    </main>
 
-                        <p style="font-size:16px; line-height:26px; color:#4a4a4a;">
-                            Thank you for contacting us.<br><br>
-                            We have received your message and our team will get back to you shortly.
-                            Please allow us some time to review your request.
-                        </p>
+    <div class="divider"></div>
 
-                        <p style="font-size:15px; line-height:22px; color:#444;">
-                            If you have any issues, please contact our
-                            <a href="#" style="color:#d21f26; text-decoration:none; font-weight:500;">
-                                Support Team
-                            </a>.
-                        </p>
-                    </td>
-                </tr>
+    <footer class="footer">
+        <div class="address-section">
+            <strong class="address-title">Address</strong>
+            <address class="address-details">
+                Custom Airwing Hangar,<br>
+                General Aviation Terminal,<br>
+                Nnamdi Azikwe International Airport,<br>
+                Abuja, Nigeria
+            </address>
+        </div>
 
-
-                <tr>
-                    <td style="
-                        background:#1b1b1b;
-                        padding:30px 35px;
-                        text-align:center;
-                        color:#b5b5b5;
-                        font-size:13px;
-                        line-height:22px;
-                        letter-spacing:0.5px;
-                    ">
-
-                        <footer>
-                            <p style="margin:0 0 15px 0;">
-                              Custom Airwing Hangar, General Aviation Terminal, Nnamdi Azikwe International Airport, Abuja
-                            </p>
-                            <p style="font-size:11px; color:#9a9a9a; line-height:18px; margin-top:15px;">
-                                “Vista” is a trading name for Vista Global Holding Limited.<br>
-                                Vista does not own or operate any aircraft. All flights are operated
-                                by duly licensed air carriers and/or partner operators.<br><br>
-
-                                Vista holds a non-controlling minority stake in XOJET Aviation LLC,
-                                Red Wing Aeroplane Company, and Talon Air LLC.<br><br>
-
-                                © Vista Global Holding Limited 2025. All rights reserved.
-                            </p>
-                        </footer>
-
-                    </td>
-                </tr>
-
-            </table>
-
-            <div style="height:40px;"></div>
-        </td>
-    </tr>
-</table>
-
+        <div class="copyright">
+            © 2025 NCTSL Limited. All rights reserved.
+        </div>
+    </footer>
+</div>
 </body>
 </html>

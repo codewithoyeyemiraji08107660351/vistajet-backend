@@ -24,4 +24,7 @@ public class AboutRequest {
 
     @NotEmpty(message = "At least One core pillar should be provided")
     private List<String> corePillars;
+
+    @NotBlank(message = "Compliance cannot be empty")
+    private String compliance;
 }
