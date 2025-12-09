@@ -47,11 +47,6 @@ public class AboutController {
                     content = @Content(schema = @Schema())
             ),
             @ApiResponse(
-                    responseCode = "409",
-                    description = "About entry already exists",
-                    content = @Content(schema = @Schema())
-            ),
-            @ApiResponse(
                     responseCode = "500",
                     description = "Internal server error",
                     content = @Content(schema = @Schema())
