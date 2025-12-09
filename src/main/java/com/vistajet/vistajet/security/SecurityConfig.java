@@ -28,7 +28,7 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -45,17 +45,32 @@ public class SecurityConfig {
                     cors.configurationSource(source);
                 })
                 .authorizeHttpRequests(req -> req
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**"
+                        ).permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/v1/leadership/leaders").permitAll()
                         .requestMatchers("/api/v1/news/all-news").permitAll()
-                        .requestMatchers("/api/v1/testimonials/create-testimonials","/api/v1/testimonials/all-testimonials", "/api/v1/testimonials/find/**").permitAll()
+                        .requestMatchers("/api/v1/testimonials/create-testimonials",
+                                "/api/v1/testimonials/all-testimonials",
+                                "/api/v1/testimonials/find/**").permitAll()
                         .requestMatchers("/api/v1/partners/all-partners").permitAll()
                         .requestMatchers("/api/v1/contact/add-contact").permitAll()
                         .requestMatchers("/api/v1/about/all-about").permitAll()
                         .requestMatchers("/api/v1/gallery/galleries").permitAll()
                         .requestMatchers("/api/v1/service/all-service").permitAll()
-                        .requestMatchers("/api/v1/leadership/**", "/api/v1/news/**", "/api/v1/gallery/**", "/api/v1/partners/**", "/api/v1/service/**", "/uploads/**").hasRole("ADMIN")
+
+                        // ADMIN ONLY
+                        .requestMatchers("/api/v1/leadership/**",
+                                "/api/v1/news/**",
+                                "/api/v1/gallery/**",
+                                "/api/v1/partners/**",
+                                "/api/v1/service/**",
+                                "/uploads/**").hasRole("ADMIN")
+
                         .requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
@@ -68,4 +83,5 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 }
