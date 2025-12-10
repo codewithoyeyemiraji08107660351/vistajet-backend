@@ -57,6 +57,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/railway/volume/uploads/**").permitAll()
                         .requestMatchers("/api/v1/leadership/leaders").permitAll()
                         .requestMatchers("/api/v1/news/all-news").permitAll()
                         .requestMatchers("/api/v1/testimonials/create-testimonials",
@@ -73,7 +74,8 @@ public class SecurityConfig {
                                 "/api/v1/gallery/**",
                                 "/api/v1/partners/**",
                                 "/api/v1/service/**",
-                                "/uploads/**").hasRole("ADMIN")
+                                "/uploads/**",
+                                "/railway/volume/uploads/**").hasRole("ADMIN")
 
                         .requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
