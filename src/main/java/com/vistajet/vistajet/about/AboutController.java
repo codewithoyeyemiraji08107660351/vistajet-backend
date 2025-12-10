@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://customshangarservices.vercel.app")
+@CrossOrigin(origins ="https://customshangarservices.vercel.app/")
 @RequestMapping("/api/v1/about")
 @Tag(name = "About")
 public class AboutController {

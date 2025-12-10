@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/news")
-@CrossOrigin(origins = "https://customshangarservices.vercel.app")
+@CrossOrigin(origins ="https://customshangarservices.vercel.app/")
 @Validated
 @Tag(name = "News")
 public class NewsController {
