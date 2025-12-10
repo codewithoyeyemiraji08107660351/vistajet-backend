@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/gallery")
-@CrossOrigin(origins ="https://customshangarservices.vercel.app/")
 @Validated
 @Tag(name = "Galleries")
 public class GalleryController {

@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/leadership")
-@CrossOrigin(origins ="https://customshangarservices.vercel.app/")
 @Validated
 @Tag(name = "Leadership")
 public class LeadershipController {

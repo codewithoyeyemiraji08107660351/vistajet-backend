@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins ="https://customshangarservices.vercel.app/")
 @Tag(name = "Users")
 public class AuthenticationController {
 
