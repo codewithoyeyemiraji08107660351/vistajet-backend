@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/testimonials")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://customshangarservices.vercel.app")
 @Validated
 @Tag(name = "Testimonials")
 public class TestimonialsController {

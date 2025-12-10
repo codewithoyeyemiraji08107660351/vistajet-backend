@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:5173"));
+                    config.setAllowedOrigins(List.of("https://customshangarservices.vercel.app"));
                     config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true);
@@ -63,7 +63,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/gallery/galleries").permitAll()
                         .requestMatchers("/api/v1/service/all-service").permitAll()
 
-                        // ADMIN ONLY
                         .requestMatchers("/api/v1/leadership/**",
                                 "/api/v1/news/**",
                                 "/api/v1/gallery/**",
