@@ -66,7 +66,7 @@ public class ServiceImagesStorage {
         }
 
         if (file.getSize() > maxFileSize) {
-            throw new RuntimeException("File too large. Max allowed is 2MB.");
+            throw new RuntimeException("File too large. Max allowed is 10MB.");
         }
 
         String ext = getExtension(file.getOriginalFilename());

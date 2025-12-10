@@ -19,6 +19,7 @@ import java.util.Set;
 @Slf4j
 public class CompanyLogoStorage {
 
+
     @Value("${application.file.upload.base-path}")
     private String baseUploadPath;
 
@@ -35,7 +36,7 @@ public class CompanyLogoStorage {
         File dir = new File(folder);
 
         if (!dir.exists() && !dir.mkdirs()) {
-            throw new RuntimeException("Could not create upload directory");
+            throw new RuntimeException("Could not create upload directory: " + folder);
         }
 
         String ext = getExtension(file.getOriginalFilename());
@@ -55,9 +56,8 @@ public class CompanyLogoStorage {
         if (filename == null || filename.isBlank()) {
             throw new RuntimeException("Invalid image filename");
         }
-        return "/uploads/company/"+filename;
+        return "/uploads/company/" + filename;
     }
-
 
     private void validateFile(MultipartFile file) {
 

@@ -1,11 +1,11 @@
 package com.vistajet.vistajet.file;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,7 +34,7 @@ public class GalleryLogoStorage {
         File dir = new File(folder);
 
         if (!dir.exists() && !dir.mkdirs()) {
-            throw new RuntimeException("Could not create upload directory");
+            throw new RuntimeException("Could not create upload directory: " + folder);
         }
 
         String ext = getExtension(file.getOriginalFilename());
@@ -54,9 +54,8 @@ public class GalleryLogoStorage {
         if (filename == null || filename.isBlank()) {
             throw new RuntimeException("Invalid image filename");
         }
-        return "/uploads/gallery/"+filename;
+        return "/uploads/gallery/" + filename;
     }
-
 
     private void validateFile(MultipartFile file) {
 
@@ -65,7 +64,7 @@ public class GalleryLogoStorage {
         }
 
         if (file.getSize() > maxFileSize) {
-            throw new RuntimeException("File too large. Max allowed is 2MB.");
+            throw new RuntimeException("File too large. Max allowed is 10MB.");
         }
 
         String ext = getExtension(file.getOriginalFilename());

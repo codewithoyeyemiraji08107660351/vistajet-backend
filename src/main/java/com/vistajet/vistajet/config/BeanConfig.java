@@ -42,10 +42,12 @@ public class BeanConfig implements WebMvcConfigurer {
         return new BCryptPasswordEncoder(12);
     }
 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:uploads/");
+                .addResourceLocations("file:/railway/volume/uploads/");
     }
+
 
 }

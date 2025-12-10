@@ -34,7 +34,7 @@ public class LeadersImageStorageService {
         File dir = new File(folder);
 
         if (!dir.exists() && !dir.mkdirs()) {
-            throw new RuntimeException("Could not create upload directory");
+            throw new RuntimeException("Could not create upload directory: " + folder);
         }
 
         String ext = getExtension(file.getOriginalFilename());
@@ -54,9 +54,8 @@ public class LeadersImageStorageService {
         if (filename == null || filename.isBlank()) {
             throw new RuntimeException("Invalid image filename");
         }
-        return "/uploads/leadership/"+filename;
+        return "/uploads/leadership/" + filename;
     }
-
 
     private void validateFile(MultipartFile file) {
 
@@ -65,7 +64,7 @@ public class LeadersImageStorageService {
         }
 
         if (file.getSize() > maxFileSize) {
-            throw new RuntimeException("File too large. Max allowed is 2MB.");
+            throw new RuntimeException("File too large. Max allowed is 10MB.");
         }
 
         String ext = getExtension(file.getOriginalFilename());
@@ -92,4 +91,3 @@ public class LeadersImageStorageService {
         }
     }
 }
-
