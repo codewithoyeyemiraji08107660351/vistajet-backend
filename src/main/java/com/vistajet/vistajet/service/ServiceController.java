@@ -32,7 +32,7 @@ public class ServiceController {
     @PreAuthorize("isAuthenticated()")
     @Operation(
             summary = "Create Service",
-            description = "Adds a new Service entry. Accessible only to Admin."
+            description = "Adds a new Service entry. Accessible only to Admin. Authentication is required"
     )
     @ApiResponses({
             @ApiResponse(

@@ -31,7 +31,7 @@ public class TestimonialsController {
     @PostMapping(value = "/create-testimonials", consumes = "multipart/form-data")
     @Operation(
             summary = "Create Testimonials",
-            description = "Adds a new Testimonials entry. Accessible only to users."
+            description = "Adds a new Testimonials entry. Accessible only to users. No authentication required"
     )
     @ApiResponses({
             @ApiResponse(
