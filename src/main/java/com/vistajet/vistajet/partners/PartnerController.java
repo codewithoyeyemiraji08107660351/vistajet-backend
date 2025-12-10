@@ -1,6 +1,5 @@
 package com.vistajet.vistajet.partners;
 
-import com.vistajet.vistajet.news.NewsResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -120,6 +119,44 @@ public class PartnerController {
             @RequestParam(required = false) String companyName
     ) {
         return ResponseEntity.ok(partnerService.getAPartner(id, companyName));
+    }
+
+    @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
+    @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @Operation(
+            summary = "Update Partner",
+            description = "Updates an existing partner. Requires authentication."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Partner updated successfully",
+                    content = @Content(schema = @Schema())
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid request body or file",
+                    content = @Content(schema = @Schema())
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Service not found",
+                    content = @Content(schema = @Schema())
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error",
+                    content = @Content(schema = @Schema())
+            )
+    })
+    public ResponseEntity<?> updatePartner(
+            @PathVariable Integer id,
+            @RequestPart("data") @Valid PartnerRequest request,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
+
+        partnerService.updatePartner(id, request, file);
+        return ResponseEntity.ok("Partner updated successfully");
     }
 
     @DeleteMapping("/delete/{id}")

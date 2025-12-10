@@ -56,6 +56,21 @@ public class PartnerService {
         return toResponse(partners);
     }
 
+    public void updatePartner(Integer id, PartnerRequest request, MultipartFile file) {
+        Partners partners = partnerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Cannot update Partner with ID " + id + " not found"));
+
+        partners.setCompanyName(request.getCompanyName());
+
+        if (file != null && !file.isEmpty()) {
+            String filename = companyLogoStorage.saveCompanyLogo(file);
+           partners.setCompanyLogo(filename);
+        }
+
+        partnerRepository.save(partners);
+    }
+
     private PartnerResponse toResponse(Partners partners) {
         return PartnerResponse.builder()
                 .id(partners.getId())
