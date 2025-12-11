@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(
-                                "/swagger-ui.html",
+                                "/swagger-ui.html", "/debug/files",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
                         ).permitAll()
@@ -55,7 +55,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/railway/volume/uploads/**").permitAll()
-                        .requestMatchers("/debug/files").permitAll()
 
                         .requestMatchers("/api/v1/leadership/leaders").permitAll()
                         .requestMatchers("/api/v1/news/all-news").permitAll()
@@ -71,8 +70,7 @@ public class SecurityConfig {
                                 "/api/v1/news/**",
                                 "/api/v1/gallery/**",
                                 "/api/v1/partners/**",
-                                "/api/v1/service/**",
-                                "/debug/files"
+                                "/api/v1/service/**"
                         ).hasRole("ADMIN")
 
                         .requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER")
